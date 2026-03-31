@@ -1,0 +1,95 @@
+XSOC CORP PROPRIETARY LICENSE
+XSOC-QSIG (DSKAG-IT-SIG) SOFTWARE DEVELOPMENT KIT
+Version 1.0 | March 2026
+
+Copyright (c) 2026 XSOC Corp. All Rights Reserved.
+CAGE Code: 8ZXJ8 | UEI: G1R1NKS81NF5
+EAR Classification: ECCN 5D002.C1, License Exception ENC §740.17(a)(b)(2)
+
+NOTICE TO ALL USERS: This software, including all binaries, libraries,
+documentation, cryptographic constructions, and associated materials
+(collectively the "Software"), is the exclusive proprietary and trade
+secret property of XSOC Corp. All rights are reserved.
+
+1. NO LICENSE GRANTED BY PUBLICATION
+
+Publication of this release, including placement in a public repository,
+does not constitute a license of any kind. No right to use, copy, modify,
+merge, publish, distribute, sublicense, sell, or otherwise exploit this
+Software is granted by this publication, implicitly or otherwise.
+
+2. COMMERCIAL LICENSE REQUIRED
+
+Use of this Software in any application, product, system, or service
+requires a valid written commercial license executed by XSOC Corp.
+Evaluation licenses are available for qualified prospects. Contact:
+licensing@xsoccorp.com
+
+3. INTELLECTUAL PROPERTY
+
+The following are the exclusive intellectual property of XSOC Corp and
+are protected by copyright, trade secret, patent, and other applicable
+intellectual property laws:
+
+  a. The DSKAG (Deterministic Symmetric Key Agreement by Generation)
+     cryptographic protocol and all variants thereof.
+
+  b. The DSKAG-IT-SIG information-theoretic transaction signature scheme,
+     including the wire format, MAC input buffer construction, and all
+     security constructions described in associated publications.
+
+  c. The NexusKey composite policy digest construction and all
+     compliance domain fusion mechanisms.
+
+  d. The four-layer UltraHonk zero-knowledge proof circuit for
+     IT-secure transaction signature verification, including the
+     circuit design, layer architecture, and Solidity verifier.
+
+  e. The SP-VERSA cipher and all XSOC wave modulation constructions.
+
+  f. All source code, circuit definitions, and implementation details
+     of the above, whether or not included in this release.
+
+4. WHAT THIS RELEASE CONTAINS
+
+This release contains pre-compiled binary artifacts, compiled Solidity
+contracts, a verifying key, and API reference documentation. It does not
+contain source code, circuit source, DSKAG derivation internals, or
+wave modulation parameters. Publication of these artifacts establishes
+the implementation date as prior art but does not disclose trade secrets.
+
+5. PROHIBITED USES
+
+Without a valid written license from XSOC Corp, the following are
+expressly prohibited:
+
+  a. Reverse engineering, decompilation, or disassembly of any binary.
+  b. Use in any commercial product or service.
+  c. Use in any government or defense application.
+  d. Reproduction or distribution to any third party.
+  e. Creation of derivative works.
+  f. Use in cryptographic research that does not cite XSOC Corp as the
+     originator of the DSKAG-IT-SIG construction.
+
+6. EXPORT CONTROL
+
+This Software is subject to United States Export Administration
+Regulations. ECCN: 5D002.C1. License Exception ENC applies per
+§§740.17(a) and (b)(2). Diversion contrary to U.S. law is prohibited.
+BIS export classification case number Z1691431.
+
+7. NO WARRANTY
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+XSOC CORP EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED.
+
+8. TRADEMARKS
+
+XSOC, DSKAG, DSKAG-IT-SIG, XSOC-QSIG, NexusKey, SP-VERSA, TrustLayer,
+TrustShim, VoiceShield, EBP, NIE, NexusKey, VectorShield, and
+ColdVault are trademarks of XSOC Corp. All rights reserved.
+
+XSOC Corp
+16400 Bake Parkway, Irvine, California
+licensing@xsoccorp.com | www.xsoccorp.com
+CAGE Code 8ZXJ8 | UEI G1R1NKS81NF5

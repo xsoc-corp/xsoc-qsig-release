@@ -1,0 +1,10 @@
+*.rs
+Cargo.toml
+Cargo.lock
+src/
+target/
+.env
+*.key
+*.pem
+*.rlib
+*.rmeta
