@@ -7,8 +7,8 @@ We believe security is proven through adversarial review, not obscurity.
 
 ## Published Research
 
-**Paper:** DSKAG-IT-SIG v2.2 (April 2026)
-**DOI:** [10.5281/zenodo.19457812](https://doi.org/10.5281/zenodo.19457812)
+**Paper:** DSKAG-IT-SIG v2.3 (April 2026)
+**DOI:** https://doi.org/10.5281/zenodo.19639165
 **17 pages. Complete game-based security proofs. CC BY-NC-ND 4.0.**
 
 ## Scope
