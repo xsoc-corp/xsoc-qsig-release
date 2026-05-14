@@ -53,7 +53,7 @@ For machine-readable deployment metadata, see [`deployments.json`](./deployments
 |---|---|---|
 | Ethereum Sepolia | `XSOCPolicyOracle` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
 | Arbitrum Sepolia | `HonkVerifier` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
-| Arbitrum Sepolia | `XSOCZKVerifier` | `0xaAC4c8a563FbD424CF8e1f1F70343833447A45db` |
+| Arbitrum Sepolia | `XSOCZKVerifier` | `0xD6D139fF694C178a9b641B280bbDBaF23b350A14` |
 
 Testnet deployments remain operational for development and integration testing.
 
