@@ -5,7 +5,7 @@
 XSOC-QSIG (DSKAG-IT-SIG) is the only production-deployed transaction
 signature scheme that simultaneously achieves:
 
-- **IT-secure signatures** , 2Ã¢ÂÂ»Ã‚Â¹Ã‚Â²Ã¢ÂÂ¸ forgery bound, unconditional, holds
+- **IT-secure signatures** , 2⁻¹²⁸ forgery bound, unconditional, holds
   against any adversary including unbounded quantum computers
 - **30-byte wire format** , fits every existing ISO 20022 SWIFT field
   today without re-engineering the message layer
@@ -19,43 +19,6 @@ signature scheme that simultaneously achieves:
   no oracle and no XSOC Corp involvement in the verification path
 
 ---
-
-## Production Deployments
-
-The XSOC-QSIG / DSKAG-IT-SIG ZK verifier infrastructure is deployed to public mainnets. Source verified on Etherscan and Arbiscan; bytecode reproducible from this repository.
-
-### Ethereum Mainnet (Chain ID 1)
-
-| Contract | Address | Etherscan |
-|---|---|---|
-| `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://etherscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
-| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://etherscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
-
-### Arbitrum One (Chain ID 42161)
-
-| Contract | Address | Arbiscan |
-|---|---|---|
-| `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://arbiscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
-| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://arbiscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
-
-**Deployed:** May 13, 2026
-**Deployer:** `0x101eF283CAb956EDEf54745b89272E1B8f2B7EA6` (deterministic across chains via matched nonce)
-**Compiler:** Solc 0.8.27, optimizer enabled at runs=1, EVM version `cancun`
-**Constructor args for `XSOCZKVerifier`:** `circuitVersion=1`, `honkVerifier=<HonkVerifier address above>`
-
-All contracts are immutable post-deployment. The XSOC corporate identity has no privileged role in either verifier. Anyone may call `submitProof()` or `isProven()` without authorization; the UltraHonk proof is the sole authorization.
-
-For machine-readable deployment metadata, see [`deployments.json`](./deployments.json).
-
-### Test Deployments
-
-| Network | Contract | Address |
-|---|---|---|
-| Ethereum Sepolia | `XSOCPolicyOracle` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
-| Arbitrum Sepolia | `HonkVerifier` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
-| Arbitrum Sepolia | `XSOCZKVerifier` | `0xaAC4c8a563FbD424CF8e1f1F70343833447A45db` |
-
-Testnet deployments remain operational for development and integration testing.
 
 ## Live On-Chain Deployment
 
@@ -169,8 +132,8 @@ The four-layer UltraHonk circuit (no trusted setup) simultaneously proves:
 4. **License binding** , a valid XSOC license token was active at signing time
    (with NIE: also that the NIE session was non-revoked and above the role floor)
 
-Circuit stats: 143,802 gates Ã‚Â· 16 KB proof Ã‚Â· 77 KB Solidity verifier
-Toolchain: Nargo 1.0.0-beta.3 Ã‚Â· Barretenberg 0.82.2
+Circuit stats: 143,802 gates · 16 KB proof · 77 KB Solidity verifier
+Toolchain: Nargo 1.0.0-beta.3 · Barretenberg 0.82.2
 
 ---
 
@@ -212,7 +175,7 @@ Evaluation licenses are available for qualified institutions.
 
 ## Export Control
 
-ECCN 5D002.C1, License Exception ENC Ã‚Â§740.17(a)(b)(2).
+ECCN 5D002.C1, License Exception ENC §740.17(a)(b)(2).
 BIS export classification case number Z1691431.
 Diversion contrary to U.S. law is prohibited.
 
@@ -222,4 +185,4 @@ Diversion contrary to U.S. law is prohibited.
 NIE, Nexus Identity Engine, and VoiceShield are trademarks of XSOC Corp.
 All rights reserved.*
 
-*Ã‚Â© 2026 XSOC Corp. All Rights Reserved.*
+*© 2026 XSOC Corp. All Rights Reserved.*
