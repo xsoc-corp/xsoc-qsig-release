@@ -39,14 +39,16 @@ contract XSOCZKVerifier {
 
     address public immutable owner;
     uint8   public circuitVersion;
+    HonkVerifier public immutable verifier;
     mapping(bytes32 => bool) public provenProofs;
     uint256 public totalProven;
 
     // ── Constructor ───────────────────────────────────────────────────────────
 
-    constructor(uint8 _circuitVersion) {
+    constructor(uint8 _circuitVersion, HonkVerifier _verifier) {
         owner          = msg.sender;
         circuitVersion = _circuitVersion;
+        verifier       = _verifier;
     }
 
     // ── Permissionless Verification ───────────────────────────────────────────
@@ -58,12 +60,13 @@ contract XSOCZKVerifier {
     /// @param publicInputs ABI-encoded public inputs (59 field elements)
     function submitProof(
         bytes calldata proofBytes,
-        bytes32[] calldata publicInputs
+        bytes32[] calldata publicInputs,
+        uint32 txSeq
     ) external returns (bytes32 proofId) {
         require(publicInputs.length == 59, "XSOCZKVerifier: expected 59 public inputs");
 
         // Verify the UltraHonk proof using the nargo-generated verifier
-        bool valid = HonkVerifier.verify(proofBytes, publicInputs);
+        bool valid = verifier.verify(proofBytes, publicInputs);
         if (!valid) {
             emit ProofRejected(bytes32(publicInputs[0]), msg.sender,
                 "UltraHonk proof verification failed", block.timestamp);
@@ -73,17 +76,15 @@ contract XSOCZKVerifier {
         // Decode public inputs from field elements
         // Layout matches ZkPublicInputs::to_abi_bytes() in inputs.rs
         // tx_hash: fields[0..32], mac: fields[32..48], policy_tag: fields[48..56]
-        // hardware_tier: fields[56], epoch: fields[57..59], tx_seq: fields[59..63]
+        // hardware_tier: fields[56], epoch: fields[57..59]
+        // tx_seq: passed as calldata parameter (not in circuit public inputs)
         bytes32 txHash     = _decodeBytes32(publicInputs, 0);
         bytes8  policyTag  = _decodeBytes8(publicInputs, 48);
         uint8   hwTier     = uint8(uint256(publicInputs[56]));
         uint16  epoch      = uint16((uint256(publicInputs[57]) << 8) | uint256(publicInputs[58]));
-        uint32  txSeq      = uint32(
-            (uint256(publicInputs[59]) << 24) |
-            (uint256(publicInputs[60]) << 16) |
-            (uint256(publicInputs[61]) <<  8) |
-             uint256(publicInputs[62])
-        );
+          // txSeq provided as calldata parameter; not in circuit public inputs.
+        // Circuit verifies tx_hash, mac, policy_tag, hw_tier, epoch (59 fields).
+        // Full circuit integration of tx_seq is tracked for next verifier release.
 
         // Validate public inputs
         require(epoch != 0,          "XSOCZKVerifier: epoch must be >= 1");
