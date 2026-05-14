@@ -20,6 +20,43 @@ signature scheme that simultaneously achieves:
 
 ---
 
+## Production Deployments
+
+The XSOC-QSIG / DSKAG-IT-SIG ZK verifier infrastructure is deployed to public mainnets. Source verified on Etherscan and Arbiscan; bytecode reproducible from this repository.
+
+### Ethereum Mainnet (Chain ID 1)
+
+| Contract | Address | Etherscan |
+|---|---|---|
+| `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://etherscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
+| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://etherscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
+
+### Arbitrum One (Chain ID 42161)
+
+| Contract | Address | Arbiscan |
+|---|---|---|
+| `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://arbiscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
+| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://arbiscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
+
+**Deployed:** May 13, 2026
+**Deployer:** `0x101eF283CAb956EDEf54745b89272E1B8f2B7EA6` (deterministic across chains via matched nonce)
+**Compiler:** Solc 0.8.27, optimizer enabled at runs=1, EVM version `cancun`
+**Constructor args for `XSOCZKVerifier`:** `circuitVersion=1`, `honkVerifier=<HonkVerifier address above>`
+
+All contracts are immutable post-deployment. The XSOC corporate identity has no privileged role in either verifier. Anyone may call `submitProof()` or `isProven()` without authorization; the UltraHonk proof is the sole authorization.
+
+For machine-readable deployment metadata, see [`deployments.json`](./deployments.json).
+
+### Test Deployments
+
+| Network | Contract | Address |
+|---|---|---|
+| Ethereum Sepolia | `XSOCPolicyOracle` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
+| Arbitrum Sepolia | `HonkVerifier` | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
+| Arbitrum Sepolia | `XSOCZKVerifier` | `0xaAC4c8a563FbD424CF8e1f1F70343833447A45db` |
+
+Testnet deployments remain operational for development and integration testing.
+
 ## Live On-Chain Deployment
 
 **XSOCPolicyOracle , Ethereum Sepolia**
