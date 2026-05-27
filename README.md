@@ -29,14 +29,14 @@ The XSOC-QSIG / DSKAG-IT-SIG ZK verifier infrastructure is deployed to public ma
 | Contract | Address | Etherscan |
 |---|---|---|
 | `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://etherscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
-| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://etherscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
+| `XSOCZKVerifier` | `0x85D7ba03019941ED6d3E83D1CA72C844fC14458d` | [view](https://etherscan.io/address/0x85D7ba03019941ED6d3E83D1CA72C844fC14458d) |
 
 ### Arbitrum One (Chain ID 42161)
 
 | Contract | Address | Arbiscan |
 |---|---|---|
 | `HonkVerifier` | `0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66` | [view](https://arbiscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66) |
-| `XSOCZKVerifier` | `0xE405a52fcecB82085FEC04F40834237C0741b3B4` | [view](https://arbiscan.io/address/0xE405a52fcecB82085FEC04F40834237C0741b3B4) |
+| `XSOCZKVerifier` | `0x85D7ba03019941ED6d3E83D1CA72C844fC14458d` | [view](https://arbiscan.io/address/0x85D7ba03019941ED6d3E83D1CA72C844fC14458d) |
 
 **Deployed:** May 13, 2026
 **Deployer:** `0x101eF283CAb956EDEf54745b89272E1B8f2B7EA6` (deterministic across chains via matched nonce)
