@@ -15,7 +15,7 @@ import "./HonkVerifier.sol";
 
 contract XSOCZKVerifier {
 
-    // ── Events ───────────────────────────────────────────────────────────────
+    // -- Events --
 
     event PolicyProven(
         bytes32 indexed proofId,
@@ -35,7 +35,7 @@ contract XSOCZKVerifier {
         uint256 timestamp
     );
 
-    // ── Storage ───────────────────────────────────────────────────────────────
+    // -- Storage --
 
     address public immutable owner;
     uint8   public circuitVersion;
@@ -43,7 +43,7 @@ contract XSOCZKVerifier {
     mapping(bytes32 => bool) public provenProofs;
     uint256 public totalProven;
 
-    // ── Constructor ───────────────────────────────────────────────────────────
+    // -- Constructor --
 
     constructor(uint8 _circuitVersion, HonkVerifier _verifier) {
         owner          = msg.sender;
@@ -51,17 +51,16 @@ contract XSOCZKVerifier {
         verifier       = _verifier;
     }
 
-    // ── Permissionless Verification ───────────────────────────────────────────
+    // -- Permissionless Verification --
 
     /// @notice Submit a DSKAG-IT-SIG UltraHonk ZK proof for on-chain recording.
     /// PERMISSIONLESS: anyone can call this. The proof is the authorization.
     ///
-    /// @param proofBytes  UltraHonk proof bytes from xsoc-sig-zkp prover
+    /// @param proofBytes   UltraHonk proof bytes from xsoc-sig-zkp prover
     /// @param publicInputs ABI-encoded public inputs (59 field elements)
     function submitProof(
         bytes calldata proofBytes,
-        bytes32[] calldata publicInputs,
-        uint32 txSeq
+        bytes32[] calldata publicInputs
     ) external returns (bytes32 proofId) {
         require(publicInputs.length == 59, "XSOCZKVerifier: expected 59 public inputs");
 
@@ -74,22 +73,23 @@ contract XSOCZKVerifier {
         }
 
         // Decode public inputs from field elements
-        // Layout matches ZkPublicInputs::to_abi_bytes() in inputs.rs
-        // tx_hash: fields[0..32], mac: fields[32..48], policy_tag: fields[48..56]
-        // hardware_tier: fields[56], epoch: fields[57..59]
-        // tx_seq: passed as calldata parameter (not in circuit public inputs)
-        bytes32 txHash     = _decodeBytes32(publicInputs, 0);
-        bytes8  policyTag  = _decodeBytes8(publicInputs, 48);
-        uint8   hwTier     = uint8(uint256(publicInputs[56]));
-        uint16  epoch      = uint16((uint256(publicInputs[57]) << 8) | uint256(publicInputs[58]));
-          // txSeq provided as calldata parameter; not in circuit public inputs.
-        // Circuit verifies tx_hash, mac, policy_tag, hw_tier, epoch (59 fields).
-        // Full circuit integration of tx_seq is tracked for next verifier release.
+        // Layout matches Noir ABI: each integer type is one field element
+        // tx_hash:       fields[0..32]  (32 fields, one per byte)
+        // mac:           fields[32..48] (16 fields, one per byte)
+        // policy_tag:    fields[48..56] (8 fields, one per byte)
+        // hardware_tier: fields[56]     (1 field, u8 as field element)
+        // epoch:         fields[57]     (1 field, u16 as field element)
+        // tx_seq:        fields[58]     (1 field, u32 as field element)
+        bytes32 txHash    = _decodeBytes32(publicInputs, 0);
+        bytes8  policyTag = _decodeBytes8(publicInputs, 48);
+        uint8   hwTier    = uint8(uint256(publicInputs[56]));
+        uint16  epoch     = uint16(uint256(publicInputs[57]));
+        uint32  txSeq     = uint32(uint256(publicInputs[58]));
 
         // Validate public inputs
-        require(epoch != 0,          "XSOCZKVerifier: epoch must be >= 1");
-        require(hwTier >= 1 && hwTier <= 3, "XSOCZKVerifier: invalid hardware tier");
-        require(policyTag != bytes8(0), "XSOCZKVerifier: policy tag must be non-zero");
+        require(epoch != 0,                  "XSOCZKVerifier: epoch must be >= 1");
+        require(hwTier >= 1 && hwTier <= 3,  "XSOCZKVerifier: invalid hardware tier");
+        require(policyTag != bytes8(0),      "XSOCZKVerifier: policy tag must be non-zero");
 
         // Record proof
         proofId = keccak256(abi.encodePacked(txHash, policyTag, txSeq, epoch));
@@ -109,7 +109,7 @@ contract XSOCZKVerifier {
         return provenProofs[keccak256(abi.encodePacked(txHash, policyTag, txSeq, epoch))];
     }
 
-    // ── Internal ──────────────────────────────────────────────────────────────
+    // -- Internal --
 
     function _decodeBytes32(bytes32[] calldata fields, uint256 offset)
         internal pure returns (bytes32 result) {
