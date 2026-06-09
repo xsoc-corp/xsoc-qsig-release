@@ -92,7 +92,7 @@ contract XSOCZKVerifier {
         require(policyTag != bytes8(0),      "XSOCZKVerifier: policy tag must be non-zero");
 
         // Record proof
-        proofId = keccak256(abi.encodePacked(txHash, policyTag, txSeq, epoch));
+        proofId = keccak256(abi.encodePacked(txHash, policyTag, hwTier, txSeq, epoch));
         require(!provenProofs[proofId], "XSOCZKVerifier: proof already recorded");
 
         provenProofs[proofId] = true;
@@ -104,9 +104,9 @@ contract XSOCZKVerifier {
 
     /// @notice Check whether a transaction has a verified ZK proof on-chain.
     function isProven(
-        bytes32 txHash, bytes8 policyTag, uint32 txSeq, uint16 epoch
+        bytes32 txHash, bytes8 policyTag, uint8 hardwareTier, uint32 txSeq, uint16 epoch
     ) external view returns (bool) {
-        return provenProofs[keccak256(abi.encodePacked(txHash, policyTag, txSeq, epoch))];
+        return provenProofs[keccak256(abi.encodePacked(txHash, policyTag, hardwareTier, txSeq, epoch))];
     }
 
     // -- Internal --
