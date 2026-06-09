@@ -28,16 +28,12 @@ contract XSOCZKVerifier {
         uint256 timestamp
     );
 
-    event ProofRejected(
-        bytes32 indexed txHash,
-        address submitter,
-        string  reason,
-        uint256 timestamp
-    );
-
     // -- Storage --
 
     address public immutable owner;
+    /// @notice Integrator-supplied circuit version metadata. Not a cryptographic
+    /// commitment: it is not part of proofId, not emitted, and not validated against
+    /// the bound verifier vkey. Informational only.
     uint8   public circuitVersion;
     HonkVerifier public immutable verifier;
     mapping(bytes32 => bool) public provenProofs;
@@ -66,11 +62,7 @@ contract XSOCZKVerifier {
 
         // Verify the UltraHonk proof using the nargo-generated verifier
         bool valid = verifier.verify(proofBytes, publicInputs);
-        if (!valid) {
-            emit ProofRejected(bytes32(publicInputs[0]), msg.sender,
-                "UltraHonk proof verification failed", block.timestamp);
-            revert("XSOCZKVerifier: proof verification failed");
-        }
+        require(valid, "XSOCZKVerifier: proof verification failed");
 
         // Decode public inputs from field elements
         // Layout matches Noir ABI: each integer type is one field element
