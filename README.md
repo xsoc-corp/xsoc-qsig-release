@@ -69,6 +69,8 @@ The contract has been live since block **10,531,115** (March 26, 2026).
 `PolicyVerified` events are permanently recorded on-chain. The
 `isProven()` function is callable by any address with no authorization.
 
+> **Access model.** XSOCPolicyOracle is an owner-operated reference oracle, not a permissionless production contract. The `isProven()` read above is callable by anyone, but recording is gated to a single hardcoded owner, the operator allowlist is unused, and the asset registry is sealed at construction. It demonstrates the recording flow and does not accept third-party submissions. To query recorded state, call `isProven(bytes32 proofId, bytes32 txHash, uint32 txSeq)` at selector `0x8ce18c3f`. Do not call the auto-generated `provenProofs(bytes32)` getter with the bare proofId; that mapping is keyed by `keccak256(proofId, txHash, uint32 txSeq)`, so a raw proofId query returns false for proofs that are in fact recorded.
+
 ---
 
 ## Why This Matters for SWIFT, Blockchain, and RWA
