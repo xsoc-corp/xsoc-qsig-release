@@ -147,14 +147,12 @@ deployment. **Source code is not included.** All DSKAG derivation
 internals, wave modulation parameters, and circuit source are
 proprietary trade secrets of XSOC Corp.
 
+The XSOC-QSIG signer and verifier are delivered as native libraries for Linux, Windows, and macOS and as WASM bindings for browser and Node, exposing a stable API to produce and verify XSOC-QSIG signatures from an application. These bindings are available under commercial license and are not attached to public releases; contact XSOC Corp for access.
+
 ### Artifacts
 
 | File | Description |
 |---|---|
-| `xsoc-sig-*-linux-amd64.tar.gz` | Linux x86-64 static + shared library |
-| `xsoc-sig-*-windows-msvc.zip` | Windows x86-64 .lib + .dll |
-| `xsoc-sig-*-macos-aarch64.tar.gz` | macOS Apple Silicon .a + .dylib |
-| `xsoc-sig-wasm-*.tar.gz` | WASM browser bindings (.wasm, .js, .d.ts) |
 | `contracts/HonkVerifier.sol` | nargo-generated UltraHonk Solidity verifier |
 | `contracts/XSOCZKVerifier.sol` | Permissionless ZK compliance verifier |
 | `circuits/vk.bin` | UltraHonk verifying key (1.8 KB) |
