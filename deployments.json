@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/xsoc-corp/xsoc-qsig-release/main/deployments.schema.json",
-  "version": "1.1.0",
-  "updated": "2026-05-27",
+  "version": "1.2.0",
+  "updated": "2026-06-28",
   "compiler": {
     "solc": "0.8.27",
     "optimizer": {
@@ -10,90 +10,124 @@
     },
     "evmVersion": "cancun"
   },
+  "circuit": {
+    "system": "UltraHonk (Barretenberg)",
+    "bb": "0.82.2",
+    "logN": 18,
+    "publicInputs": 60,
+    "note": "Anchored circuit. registry_root is public input [59]; the verifier requires it to equal a root XSOCSignerRegistry has published."
+  },
   "deployer": "0x101eF283CAb956EDEf54745b89272E1B8f2B7EA6",
-  "deployerNote": "Matched nonce across chains; HonkVerifier and XSOCZKVerifier share addresses on Ethereum Mainnet and Arbitrum One via deterministic deployment.",
+  "deployerNote": "Deterministic CREATE2 deployment. RelationsLib, XSOCSignerRegistry, HonkVerifier, and XSOCZKVerifier share addresses on Ethereum Mainnet and Arbitrum One.",
+  "registryRoot": "0x2c7320a2f888a16052b80367f88e38acb4c8fff4ef6f66b34c295ea226f73ac1",
   "mainnet": {
     "ethereum": {
       "chainId": 1,
       "name": "Ethereum Mainnet",
-      "deployedAt": "2026-05-13",
+      "deployedAt": "2026-06-28",
+      "deployedBlock": 25419779,
       "contracts": {
+        "RelationsLib": {
+          "address": "0x0Eb50D68B27a9CAc292e3EF0DdD781C001c16aA7",
+          "deploymentTx": "0xd37fbd4ff667b75ba1c2cd7ab99431ab1368a4212aabe5ade8c4d0694b487fc1",
+          "explorer": "https://etherscan.io/address/0x0Eb50D68B27a9CAc292e3EF0DdD781C001c16aA7",
+          "note": "Linked library used by HonkVerifier."
+        },
+        "XSOCSignerRegistry": {
+          "address": "0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821",
+          "deploymentTx": "0xb77cd8da87aa271cef03f01da5550864e57aa8c040af5e9b854b42063704ddbc",
+          "explorer": "https://etherscan.io/address/0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821",
+          "note": "Holds the authorized-signer Merkle root. Append-only rotation; two-step ownership."
+        },
         "HonkVerifier": {
-          "address": "0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66",
-          "deploymentTx": "0x772446911c79d295c75290c34b3789fac8d3a62af0f973466fd0c33498429f2e",
-          "explorer": "https://etherscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66",
-          "sourceVerified": true
+          "address": "0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+          "deploymentTx": "0xfc2a2e0cb4a006503c3d413250d13c370fb8e5e77abb0980407a0fed9bcd6e09",
+          "explorer": "https://etherscan.io/address/0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+          "note": "Standalone UltraHonk verifier, bb 0.82.2, logN 18. Bytecode unchanged from the prior verifier."
         },
         "XSOCZKVerifier": {
-          "address": "0x85D7ba03019941ED6d3E83D1CA72C844fC14458d",
-          "deploymentTx": "0x3462a1420291c9f3a096d3ad28ae6cc13b02cc9370bebf3872220394f2f68373",
-          "explorer": "https://etherscan.io/address/0x85D7ba03019941ED6d3E83D1CA72C844fC14458d",
-          "sourceVerified": true,
+          "address": "0x008DC9A25E09D18cceeef0ee507DE7419869f041",
+          "deploymentTx": "0x4e2a43ca0808856c26c297f3d9de475109b1c25b24ccb778e178b2795a79c8d0",
+          "explorer": "https://etherscan.io/address/0x008DC9A25E09D18cceeef0ee507DE7419869f041",
           "constructor": {
             "circuitVersion": 1,
-            "honkVerifier": "0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66"
-          }
+            "honkVerifier": "0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+            "registry": "0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821"
+          },
+          "note": "Anchored wrapper. proofId binds registry root and hardware tier; root-aware isProvenAt and isProvenUnderCurrentRoot."
         }
-      }
+      },
+      "rootPublishedTx": "0xf7094c21245d6afafde1bd2b7a0e0b3ff9bfdad38067a15914645ee716ff4187"
     },
     "arbitrumOne": {
       "chainId": 42161,
       "name": "Arbitrum One",
-      "deployedAt": "2026-05-13",
+      "deployedAt": "2026-06-28",
       "contracts": {
+        "RelationsLib": {
+          "address": "0x0Eb50D68B27a9CAc292e3EF0DdD781C001c16aA7",
+          "deploymentTx": "0x98368bd773b0452fa9a87f8133cdd91cdaf347d83ae701c0ce7bdc0632b7eb6c",
+          "explorer": "https://arbiscan.io/address/0x0Eb50D68B27a9CAc292e3EF0DdD781C001c16aA7",
+          "note": "Linked library used by HonkVerifier."
+        },
+        "XSOCSignerRegistry": {
+          "address": "0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821",
+          "deploymentTx": "0x0cdb887f1351e2352b4cf21c554097d70d69c84d24a466199672bfbda55a8230",
+          "explorer": "https://arbiscan.io/address/0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821",
+          "note": "Holds the authorized-signer Merkle root. Append-only rotation; two-step ownership."
+        },
         "HonkVerifier": {
-          "address": "0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66",
-          "explorer": "https://arbiscan.io/address/0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66",
-          "sourceVerified": true
+          "address": "0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+          "deploymentTx": "0xdf9f7655e99a76c6f02375ee6736b66aabc9525cbd247a768f63ff3902104a90",
+          "explorer": "https://arbiscan.io/address/0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+          "note": "Standalone UltraHonk verifier, bb 0.82.2, logN 18. Bytecode unchanged from the prior verifier."
         },
         "XSOCZKVerifier": {
-          "address": "0x85D7ba03019941ED6d3E83D1CA72C844fC14458d",
-          "deploymentTx": "0x0d13e68febb2cf59f6ed90e48761cc66e66da35263852af08ba58e14fa6d81ad",
-          "explorer": "https://arbiscan.io/address/0x85D7ba03019941ED6d3E83D1CA72C844fC14458d",
-          "sourceVerified": true,
+          "address": "0x008DC9A25E09D18cceeef0ee507DE7419869f041",
+          "deploymentTx": "0x749355cfc079276cff079f910122a7e2be5b151c9587c34f89acfbd604dae03b",
+          "explorer": "https://arbiscan.io/address/0x008DC9A25E09D18cceeef0ee507DE7419869f041",
           "constructor": {
             "circuitVersion": 1,
-            "honkVerifier": "0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66"
-          }
+            "honkVerifier": "0xBD8fc43603B382B62FF02BB560f89f83bd54d337",
+            "registry": "0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821"
+          },
+          "note": "Anchored wrapper. proofId binds registry root and hardware tier; root-aware isProvenAt and isProvenUnderCurrentRoot."
         }
-      }
+      },
+      "rootPublishedTx": "0x05e370ff2e6b2e4e052f6d3b9f2ed6514defc9cfedf7eb9c67b734dd7536380f"
     }
   },
-  "testnet": {
-    "ethereumSepolia": {
-      "chainId": 11155111,
-      "name": "Ethereum Sepolia",
-      "deployedAt": "2026-03-26",
-      "contracts": {
-        "XSOCPolicyOracle": {
-          "address": "0xAe3c62aE19b8406468b80cb9353046eE5f536c44",
-          "explorer": "https://sepolia.etherscan.io/address/0xAe3c62aE19b8406468b80cb9353046eE5f536c44",
-          "deploymentBlock": 10531115
-        }
+  "deprecated": {
+    "note": "Superseded mainnet stacks, retained for history. Do not integrate against these.",
+    "anchoredRegistryStack_2026Q2": {
+      "supersededBy": "mainnet (2026-06-28): XSOCSignerRegistry 0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821, XSOCZKVerifier 0x008DC9A25E09D18cceeef0ee507DE7419869f041",
+      "reason": "Replaced by the SMT20/SMT21/SMT22 hardened stack (append-only root rotation, two-step ownership, root-and-tier-bound proofId).",
+      "ethereumAndArbitrum": {
+        "XSOCSignerRegistry": "0x274Cd7D9Dcbd9F696772Ef5EFF362720f7651F88",
+        "HonkVerifier": "0xEC523c3058EDE4686F69e6826713b7c3C5aD7670",
+        "XSOCZKVerifier": "0x8f2F767e947ac28845957678c233eE898D818621"
       }
     },
-    "arbitrumSepolia": {
-      "chainId": 421614,
-      "name": "Arbitrum Sepolia",
-      "deployedAt": "2026-03-26",
-      "contracts": {
-        "HonkVerifier": {
-          "address": "0xAe3c62aE19b8406468b80cb9353046eE5f536c44",
-          "explorer": "https://sepolia.arbiscan.io/address/0xAe3c62aE19b8406468b80cb9353046eE5f536c44"
-        },
-        "XSOCZKVerifier": {
-          "address": "0x707808A22F4192D3bda4FCD1b3889FDAB0bCA0BA",
-          "explorer": "https://sepolia.arbiscan.io/address/0x707808A22F4192D3bda4FCD1b3889FDAB0bCA0BA",
-          "constructor": {
-            "circuitVersion": 1,
-            "honkVerifier": "0xAe3c62aE19b8406468b80cb9353046eE5f536c44"
-          }
-        }
+    "registrylessStack_2026_05_13": {
+      "supersededBy": "the anchored registry stack above, then the 2026-06-28 stack",
+      "reason": "Pre-registry verifier wrapper; no on-chain authorized-signer anchoring.",
+      "ethereumAndArbitrum": {
+        "HonkVerifier": "0x0B7dDF8AE4B403Cc737C4843E0C567C91976fa66",
+        "XSOCZKVerifier": "0x85D7ba03019941ED6d3E83D1CA72C844fC14458d"
+      }
+    },
+    "testnet": {
+      "ethereumSepolia": {
+        "XSOCPolicyOracle": "0xAe3c62aE19b8406468b80cb9353046eE5f536c44"
+      },
+      "arbitrumSepolia": {
+        "HonkVerifier": "0xAe3c62aE19b8406468b80cb9353046eE5f536c44",
+        "XSOCZKVerifier": "0x707808A22F4192D3bda4FCD1b3889FDAB0bCA0BA"
       }
     }
   },
   "references": {
-    "paper": "https://doi.org/10.5281/zenodo.19639165",
+    "paper": "https://doi.org/10.5281/zenodo.19639166",
     "qsig3p": "https://doi.org/10.5281/zenodo.20078816",
     "cga": "https://zenodo.org/records/19560239",
     "bountyProgram": "https://xsoccorp.com/q-sig-security-bounty",

@@ -26,11 +26,17 @@ We believe security is proven through adversarial review, not obscurity.
 
 ### In Scope: Smart Contracts
 
-| Contract | Network | Address |
-|----------|---------|---------|
-| XSOCPolicyOracle | Ethereum Sepolia | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
-| HonkVerifier | Arbitrum Sepolia | `0xAe3c62aE19b8406468b80cb9353046eE5f536c44` |
-| XSOCZKVerifier | Arbitrum Sepolia | `0xaAC4c8a563FbD424CF8e1f1F70343833447A45db` |
+Production stack, deployed on Ethereum Mainnet and Arbitrum One at identical
+addresses (deterministic CREATE2):
+
+| Contract | Address |
+|----------|---------|
+| XSOCSignerRegistry | `0xDA72bE646e2Ae09f45FE6f143Aa723a9eF651821` |
+| HonkVerifier | `0xBD8fc43603B382B62FF02BB560f89f83bd54d337` |
+| XSOCZKVerifier | `0x008DC9A25E09D18cceeef0ee507DE7419869f041` |
+
+See `deployments.json` for deployment transactions, the linked `RelationsLib`
+library, and the prior deprecated stacks.
 
 ### Out of Scope
 
@@ -95,6 +101,21 @@ Three independent academic institutions have reviewed this construction:
 | University of Luxembourg | Cryptanalytic review (Biryukov/Perrin), 2020 | No structural attacks found. Entropy 7.998 bits/byte. |
 | Cal Poly San Luis Obispo | Dieharder statistical battery | 440+ tests. 98.4% pass rate. NIST SP 800-22 and AIS-31. |
 | George Mason University SENTINEL | Security audit FP5223, Dec 2025 | Two findings remediated. Audit signed off. |
+
+## Resolved Findings
+
+Construction-tier theorems and properties remain unbroken. The findings processed
+under the program are smart-contract and reference-crate hardening. The most recent
+batch, fixed and live in the production stack above:
+
+| Finding | Component | Status |
+|---------|-----------|--------|
+| SMT20 | Registry root rotation | Fixed. Rotation is append-only; a prior root cannot be reinstated, so revocation by rotation is irreversible. |
+| SMT21 | Registry ownership | Fixed. Two-step ownership; the recipient must accept before it takes effect. |
+| SMT22 | Wrapper proof identity | Fixed. proofId binds the registry root and hardware tier; root-aware isProvenAt and isProvenUnderCurrentRoot added. |
+| SMT23 | xsoc-tss-core commitment | Fixed in v0.1.1. Malformed opening bytes return a typed error instead of panicking. |
+
+Earlier findings were triaged and closed prior to this batch.
 
 ## Contact
 
