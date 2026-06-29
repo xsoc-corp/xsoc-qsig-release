@@ -8,3 +8,8 @@ target/
 *.pem
 *.rlib
 *.rmeta
+
+out/
+cache/
+*.bak
+*.bak_*
