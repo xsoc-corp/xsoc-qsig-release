@@ -8,7 +8,7 @@ We believe security is proven through adversarial review, not obscurity.
 ## Published Research
 
 **Paper:** DSKAG-IT-SIG v2.3 (April 2026)
-**DOI:** https://doi.org/10.5281/zenodo.19639165
+**DOI:** https://doi.org/10.5281/zenodo.19639166
 **17 pages. Complete game-based security proofs. CC BY-NC-ND 4.0.**
 
 ## Scope
@@ -90,7 +90,7 @@ researchers upon request.
 5. Allow 90 days for remediation before public disclosure
 6. Researchers may publish findings after the 90-day window or upon remediation, whichever is earlier
 7. XSOC Corp will not pursue legal action against researchers acting in good faith under this program
-8. Findings on the published construction (DOI: 10.5281/zenodo.19457812) and the artifacts in this repository are explicitly authorized for security research under CC BY-NC-ND 4.0
+8. Findings on the published construction (DOI: 10.5281/zenodo.19639166) and the artifacts in this repository are explicitly authorized for security research under CC BY-NC-ND 4.0
 
 ## Prior Validations
 
